@@ -1,5 +1,3 @@
-import { create } from 'domain';
-
 export interface QuestionData {
     questionId: number;
     title: string;
