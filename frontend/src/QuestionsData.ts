@@ -1,3 +1,5 @@
+import { resolve } from 'path';
+
 export interface QuestionData {
     questionId: number;
     title: string;
@@ -14,8 +16,13 @@ export interface AnswerData {
     created: Date;
 }
 
-export const GetUnansweredQuestions = (): QuestionData[] => {
+export const GetUnansweredQuestions = async (): Promise<QuestionData[]> => {
+    await wait(500);
     return questions.filter((i) => i.answers.length === 0);
+};
+
+const wait = (ms: number): Promise<void> => {
+    return new Promise((resolve) => setTimeout(resolve, ms));
 };
 
 const questions: QuestionData[] = [
