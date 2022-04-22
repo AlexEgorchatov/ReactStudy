@@ -2,34 +2,41 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 import { PrimaryButton } from './Styles';
+import { QuestionList } from './QuestionLIst';
+import { GetUnansweredQuestions } from './QuestionsData';
+import { Page } from './Page';
+import { PageTitle } from './PageTitle';
 
 export const HomePage = () => (
-    <div
-        css={css`
-            margin: 50px auto 20px auto;
-            padding: 30px 20px;
-            max-width: 600px;
-        `}
-    >
+    <Page>
         <div
             css={css`
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
+                margin: 50px auto 20px auto;
+                padding: 30px 20px;
+                max-width: 600px;
             `}
         >
-            <h2
+            <div
                 css={css`
-                    font-size: 15px;
-                    font-weight: bold;
-                    margin: 10px 0px 5px;
-                    text-align: center;
-                    text-transform: uppercase;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
                 `}
             >
-                Unanswered Questions
-            </h2>
-            <PrimaryButton>Ask a question</PrimaryButton>
+                <h2
+                    css={css`
+                        font-size: 15px;
+                        font-weight: bold;
+                        margin: 10px 0px 5px;
+                        text-align: center;
+                        text-transform: uppercase;
+                    `}
+                >
+                    <PageTitle>Unanswered Questions</PageTitle>
+                </h2>
+                <PrimaryButton>Ask a question</PrimaryButton>
+            </div>
+            <QuestionList data={GetUnansweredQuestions()} />
         </div>
-    </div>
+    </Page>
 );

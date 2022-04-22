@@ -4,12 +4,13 @@ import { css, jsx } from '@emotion/react';
 import { gray5, accent2 } from './Styles';
 import { QuestionData } from './QuestionsData';
 import { FC } from 'react';
+import { Question } from './Question';
 
 interface Props {
     data: QuestionData[];
 }
 
-export const QuestionList: FC<QuestionData[]> = (data) => (
+export const QuestionList: FC<Props> = ({ data }) => (
     <ul
         css={css`
             list-style: none;
@@ -31,7 +32,9 @@ export const QuestionList: FC<QuestionData[]> = (data) => (
                         border-top: none;
                     }
                 `}
-            ></li>
+            >
+                <Question data={question} />
+            </li>
         ))}
     </ul>
 );
