@@ -3,15 +3,27 @@
 import { css, jsx } from '@emotion/react';
 import { PrimaryButton } from './Styles';
 import { QuestionList } from './QuestionLIst';
-import { GetUnansweredQuestions } from './QuestionsData';
+import { GetUnansweredQuestions, QuestionData } from './QuestionsData';
 import { Page } from './Page';
 import { PageTitle } from './PageTitle';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { isConstructorDeclaration } from 'typescript';
 
 export const HomePage = () => {
+    const [questions, setQuestions] = useState<QuestionData[] | null>(null);
+    const [questionsLoading, setQuestionsLoading] = useState(true);
     useEffect(() => {
-        console.log('first rendered');
+        const doGetUnansweredQuestions = async () => {
+            const unansweredQuestions = await GetUnansweredQuestions();
+            setQuestions(unansweredQuestions);
+            setQuestionsLoading(false);
+        };
+        doGetUnansweredQuestions();
     }, []);
+
+    const handleAskQuestionClick = () => {
+        console.log('Move ot the ask page');
+    };
 
     return (
         <Page>
@@ -40,9 +52,20 @@ export const HomePage = () => {
                     >
                         <PageTitle>Unanswered Questions</PageTitle>
                     </h2>
-                    <PrimaryButton>Ask a question</PrimaryButton>
+                    <PrimaryButton onClick={handleAskQuestionClick}>Ask a question</PrimaryButton>
                 </div>
-                {/* <QuestionList data={GetUnansweredQuestions()} /> */}
+                {questionsLoading ? (
+                    <div
+                        css={css`
+                            font-size: 16px;
+                            font-style: italic;
+                        `}
+                    >
+                        Loading...
+                    </div>
+                ) : (
+                    <QuestionList data={questions || []} />
+                )}
             </div>
         </Page>
     );
