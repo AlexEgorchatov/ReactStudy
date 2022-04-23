@@ -1,10 +1,15 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
+import { ChangeEvent } from 'react';
 import { UserIcon } from './Icons';
 import { fontFamily, fontSize, gray1, gray2, gray5 } from './Styles';
 
 export const Header = () => {
+    const handleSearchInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+        console.log(e.currentTarget.value);
+    };
+
     return (
         <div
             css={css`
@@ -35,6 +40,7 @@ export const Header = () => {
             <input
                 type="text"
                 placeholder="Search..."
+                onChange={handleSearchInputChange}
                 css={css`
                     box-sizing: border-box;
                     font-family: ${fontFamily};
