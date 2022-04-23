@@ -7,7 +7,6 @@ import { GetUnansweredQuestions, QuestionData } from './QuestionsData';
 import { Page } from './Page';
 import { PageTitle } from './PageTitle';
 import { useEffect, useState } from 'react';
-import { isConstructorDeclaration } from 'typescript';
 
 export const HomePage = () => {
     const [questions, setQuestions] = useState<QuestionData[] | null>(null);
