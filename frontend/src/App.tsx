@@ -8,6 +8,7 @@ import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import { AskPage } from './AskPage';
 import { SearchPage } from './SearchPage';
 import { SignInPage } from './SignInPage';
+import { NotFoundPage } from './NotFoundPage';
 
 function App() {
     return (
@@ -27,6 +28,7 @@ function App() {
                     <Route path="ask" element={<AskPage />} />
                     <Route path="signin" element={<SignInPage />} />
                     <Route path="home" element={<Navigate to="/" />} />
+                    <Route path="*" element={<NotFoundPage />} />
                 </Routes>
             </div>
         </BrowserRouter>
