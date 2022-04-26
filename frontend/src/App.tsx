@@ -8,6 +8,7 @@ import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import { AskPage } from './AskPage';
 import { SearchPage } from './SearchPage';
 import { SignInPage } from './SignInPage';
+import { QuestionPage } from './QuestionPage';
 import { NotFoundPage } from './NotFoundPage';
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
                     <Route path="ask" element={<AskPage />} />
                     <Route path="signin" element={<SignInPage />} />
                     <Route path="home" element={<Navigate to="/" />} />
+                    <Route path="questions/:questionId" element={<QuestionPage />} />
                     <Route path="*" element={<NotFoundPage />} />
                 </Routes>
             </div>
