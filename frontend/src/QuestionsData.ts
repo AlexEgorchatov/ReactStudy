@@ -25,6 +25,15 @@ export const GetQuestion = async (questionId: number): Promise<QuestionData | nu
     return results.length === 0 ? null : results[0];
 };
 
+export const SearchQuestions = async (criteria: string): Promise<QuestionData[]> => {
+    await wait(500);
+    return questions.filter(
+        (i) =>
+            i.title.toLowerCase().indexOf(criteria.toLowerCase()) >= 0 ||
+            i.content.toLowerCase().indexOf(criteria.toLowerCase()) >= 0,
+    );
+};
+
 const wait = (ms: number): Promise<void> => {
     return new Promise((resolve) => setTimeout(resolve, ms));
 };
