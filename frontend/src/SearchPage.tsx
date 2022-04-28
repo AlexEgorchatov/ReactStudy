@@ -5,14 +5,13 @@ import { useState, useEffect } from 'react';
 import { QuestionList } from './QuestionLIst';
 import { Page } from './Page';
 import { SearchQuestions, QuestionData } from './QuestionsData';
-import { useParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 export const SearchPage = () => {
     const [questions, setQuestions] = useState<QuestionData[]>([]);
-
-    const params = useParams();
-    const searchParams = new URLSearchParams(params.search);
+    const [searchParams] = useSearchParams();
     const search = searchParams.get('criteria') || '';
+    console.log(search);
     useEffect(() => {
         const doSearch = async (criteria: string) => {
             const foundResults = await SearchQuestions(criteria);
