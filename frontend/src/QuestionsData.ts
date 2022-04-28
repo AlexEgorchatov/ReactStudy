@@ -1,5 +1,3 @@
-import { resolve } from 'path';
-
 export interface QuestionData {
     questionId: number;
     title: string;
@@ -19,6 +17,21 @@ export interface AnswerData {
 export const GetUnansweredQuestions = async (): Promise<QuestionData[]> => {
     await wait(500);
     return questions.filter((i) => i.answers.length === 0);
+};
+
+export const GetQuestion = async (questionId: number): Promise<QuestionData | null> => {
+    await wait(500);
+    const results = questions.filter((i) => i.questionId === questionId);
+    return results.length === 0 ? null : results[0];
+};
+
+export const SearchQuestions = async (criteria: string): Promise<QuestionData[]> => {
+    await wait(500);
+    return questions.filter(
+        (i) =>
+            i.title.toLowerCase().indexOf(criteria.toLowerCase()) >= 0 ||
+            i.content.toLowerCase().indexOf(criteria.toLowerCase()) >= 0,
+    );
 };
 
 const wait = (ms: number): Promise<void> => {
