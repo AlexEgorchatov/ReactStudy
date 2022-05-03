@@ -12,8 +12,8 @@ export const QuestionPage = () => {
     const params = useParams();
     const [question, setQuestion] = useState<QuestionData | null>(null);
     useEffect(() => {
-        const doGetQuestion = async (quesitonId: number) => {
-            const foundQuestion = await GetQuestion(quesitonId);
+        const doGetQuestion = async (questionId: number) => {
+            const foundQuestion = await GetQuestion(questionId);
             setQuestion(foundQuestion);
         };
 
