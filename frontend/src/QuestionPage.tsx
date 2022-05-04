@@ -7,6 +7,8 @@ import { useParams } from 'react-router-dom';
 import { QuestionData, GetQuestion } from './QuestionsData';
 import { useState, Fragment, useEffect } from 'react';
 import { AnswerList } from './AnswerList';
+import { Form } from './Form';
+import { Field } from './Field';
 
 export const QuestionPage = () => {
     const params = useParams();
@@ -63,6 +65,15 @@ export const QuestionPage = () => {
                             question.userName
                         } on ${question.created.toLocaleDateString()} ${question.created.toLocaleTimeString()}`}</div>
                         <AnswerList data={question.answers} />
+                        <div
+                            css={css`
+                                margin-top: 20px;
+                            `}
+                        >
+                            <Form submitCaption="Submit Your Answer">
+                                <Field name="content" label="Your Answer" type="TextArea" />
+                            </Form>
+                        </div>
                     </Fragment>
                 )}
             </div>

@@ -1,6 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
+import React from 'react';
 import { FC, useState, createContext } from 'react';
 import { gray5, gray6, PrimaryButton } from './Styles';
 
