@@ -31,10 +31,10 @@ const baseCSS = css`
 `;
 
 export const Field: FC<Props> = ({ name, label, type = 'Text' }) => {
-    const { setContextValue: setContextValues } = useContext(FormContext);
+    const { setContextValue } = useContext(FormContext);
     const handleChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => {
-        if (setContextValues) {
-            setContextValues(name, e.currentTarget.value);
+        if (setContextValue) {
+            setContextValue(name, e.currentTarget.value);
         }
     };
     return (
