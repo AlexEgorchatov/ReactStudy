@@ -1,8 +1,9 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
-import { FC } from 'react';
+import { FC, useContext, ChangeEvent } from 'react';
 import { fontFamily, fontSize, gray2, gray5, gray6 } from './Styles';
+import { FormContext } from './Form';
 
 interface Props {
     name: string;
@@ -30,34 +31,54 @@ const baseCSS = css`
 `;
 
 export const Field: FC<Props> = ({ name, label, type = 'Text' }) => {
+    const { setContextValue: setContextValues } = useContext(FormContext);
+    const handleChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => {
+        if (setContextValues) {
+            setContextValues(name, e.currentTarget.value);
+        }
+    };
     return (
-        <div
-            css={css`
-                display: flex;
-                flex-direction: column;
-                margin-bottom: 15px;
-            `}
-        >
-            {label && (
-                <label
-                    htmlFor={name}
+        <FormContext.Consumer>
+            {({ values }) => (
+                <div
                     css={css`
-                        font-weight: bold;
+                        display: flex;
+                        flex-direction: column;
+                        margin-bottom: 15px;
                     `}
                 >
-                    {label}
-                </label>
+                    {label && (
+                        <label
+                            htmlFor={name}
+                            css={css`
+                                font-weight: bold;
+                            `}
+                        >
+                            {label}
+                        </label>
+                    )}
+                    {(type === 'Text' || type === 'Password') && (
+                        <input
+                            type={type.toLowerCase()}
+                            id={name}
+                            value={values[name] === undefined ? '' : values[name]}
+                            onChange={handleChange}
+                            css={baseCSS}
+                        />
+                    )}
+                    {type === 'TextArea' && (
+                        <textarea
+                            id={name}
+                            value={values[name] === undefined ? '' : values[name]}
+                            onChange={handleChange}
+                            css={css`
+                                ${baseCSS};
+                                height: 100px;
+                            `}
+                        />
+                    )}
+                </div>
             )}
-            {(type === 'Text' || type === 'Password') && <input type={type.toLowerCase()} id={name} css={baseCSS} />}
-            {type === 'TextArea' && (
-                <textarea
-                    id={name}
-                    css={css`
-                        ${baseCSS};
-                        height: 100px;
-                    `}
-                />
-            )}
-        </div>
+        </FormContext.Consumer>
     );
 };

@@ -10,7 +10,7 @@ export interface Values {
 
 interface FormContextProps {
     values: Values;
-    setContextValues?: (fieldName: string, value: any) => void;
+    setContextValue?: (fieldName: string, value: any) => void;
 }
 
 export const FormContext = createContext<FormContextProps>({ values: {} });
@@ -25,7 +25,7 @@ export const Form: FC<Props> = ({ submitCaption, children }) => {
         <FormContext.Provider
             value={{
                 values,
-                setContextValues: (fieldName: string, value: any) => {
+                setContextValue: (fieldName: string, value: any) => {
                     setValues({ ...values, [fieldName]: value });
                 },
             }}
