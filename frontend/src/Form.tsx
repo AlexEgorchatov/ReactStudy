@@ -53,7 +53,26 @@ export const Form: FC<Props> = ({ submitCaption, children, validationRules }) =>
     const [errors, setErrors] = useState<Errors>({});
     const [touched, setTouched] = useState<Touched>({});
     const validate = (fieldName: string): string[] => {
-        return [];
+        if (!validationRules) {
+            return [];
+        }
+        if (!validationRules[fieldName]) {
+            return [];
+        }
+
+        const rules = Array.isArray(validationRules[fieldName])
+            ? (validationRules[fieldName] as Validation[])
+            : ([validationRules[fieldName]] as Validation[]);
+        const fieldErrors: string[] = [];
+        rules.forEach((i) => {
+            const error = i.validator(values[fieldName], i.arg);
+            if (error) {
+                fieldErrors.push(error);
+            }
+        });
+        const newErrors = { ...errors, [fieldName]: fieldErrors };
+        setErrors(newErrors);
+        return fieldErrors;
     };
 
     return (
