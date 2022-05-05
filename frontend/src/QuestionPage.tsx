@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom';
 import { QuestionData, GetQuestion } from './QuestionsData';
 import { useState, Fragment, useEffect } from 'react';
 import { AnswerList } from './AnswerList';
-import { Form } from './Form';
+import { Form, minLength, required } from './Form';
 import { Field } from './Field';
 
 export const QuestionPage = () => {
@@ -70,7 +70,12 @@ export const QuestionPage = () => {
                                 margin-top: 20px;
                             `}
                         >
-                            <Form submitCaption="Submit Your Answer">
+                            <Form
+                                submitCaption="Submit Your Answer"
+                                validationRules={{
+                                    content: [{ validator: required }, { validator: minLength, arg: 50 }],
+                                }}
+                            >
                                 <Field name="content" label="Your Answer" type="TextArea" />
                             </Form>
                         </div>
