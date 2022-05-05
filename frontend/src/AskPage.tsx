@@ -1,4 +1,3 @@
-import react from 'react';
 import { Field } from './Field';
 import { Form } from './Form';
 import { Page } from './Page';
